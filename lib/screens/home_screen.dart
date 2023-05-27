@@ -73,6 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ScaffoldMessenger.of(context).showSnackBar
                       ( SnackBar( content: Text(error.toString())));
                   });
+                  name.text = "";
+                  price.text = "";
+                  quantity.text = "";
                 },
                 child: const Text("Add"
                 ),
@@ -117,7 +120,100 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ExpansionTile(
                                   title: Text("${result["name"]}"),
                                 leading: IconButton(
-                                  onPressed: () {  },
+                                  onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                         Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(6)
+                                          ),
+                                           child: Padding(
+                                             padding: const EdgeInsets.symmetric(horizontal: 8),
+                                             child: Column(
+                                               mainAxisSize: MainAxisSize.min,
+                                               children: [
+                                                 15.sh,
+                                                 const Text("Update Details"),
+                                                 20.sh,
+                                                 TextField(
+                                                   controller: name,
+                                                   decoration: InputDecoration(
+                                                     isDense: true,
+                                                     filled: true,
+                                                     labelText: "${result["name"]}",
+                                                     border: OutlineInputBorder(
+                                                         borderSide: const BorderSide(
+                                                             width: 0, style: BorderStyle.none),
+                                                       borderRadius: BorderRadius.circular(10)
+                                                     ),
+
+                                                   ),
+                                                 ),
+                                                 20.sh,
+                                                 TextField(
+                                                   controller: quantity,
+                                                   decoration: InputDecoration(
+                                                     isDense: true,
+                                                     filled: true,
+                                                     labelText: "quantity  ${result["quantity"]}",
+                                                     border: OutlineInputBorder(
+                                                         borderSide: const BorderSide(
+                                                             width: 0, style: BorderStyle.none),
+                                                         borderRadius: BorderRadius.circular(10)
+                                                     ),
+
+                                                   ),
+                                                 ),
+                                                 20.sh,
+                                                 TextField(
+                                                   controller: price,
+                                                   decoration: InputDecoration(
+                                                     isDense: true,
+                                                     filled: true,
+                                                     labelText: "price   ${result["price"]}",
+                                                     border: OutlineInputBorder(
+                                                         borderSide: const BorderSide(
+                                                             width: 0, style: BorderStyle.none),
+                                                         borderRadius: BorderRadius.circular(10)
+                                                     ),
+
+                                                   ),
+                                                 ),
+                                                 20.sh,
+                                                 Row(
+                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                   children: [
+                                                     SizedBox(
+                                                       child: ElevatedButton(
+                                                           onPressed: (){
+                                                          update(
+                                                              result.id,
+                                                              name.text.toString(),
+                                                              price.text.toString(),
+                                                              quantity.text.toString()).then((value){
+                                                          });
+                                                           },
+                                                           child: const Text("update"),
+                                                       ),
+                                                     ),
+                                                     SizedBox(
+                                                       child: ElevatedButton(
+                                                         onPressed: (){
+                                                           Navigator.pop(context);
+                                                         },
+                                                         child: const Text("cancel"),
+                                                       ),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 20.sh,
+                                               ],
+                                             ),
+                                           ),
+                                        ),
+                                );
+                                  },
                                   icon: const Icon(Icons.edit),
 
                                 ),
@@ -139,13 +235,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
             ),
-            const Text("Update data",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            20.sh,
           ],
         ),
       ),

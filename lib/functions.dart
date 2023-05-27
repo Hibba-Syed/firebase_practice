@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final firestore = FirebaseFirestore.instance;
 Future addData(BuildContext context,String name,price,quantity) async{
-  firestore.collection("Book").add({
+  firestore.collection("products").add({
     "name": name,
     "price":price,
     "quantity":quantity,
@@ -13,6 +13,13 @@ Future addData(BuildContext context,String name,price,quantity) async{
 }
 
 Future delete(String id)async{
-  await firestore.collection("Book").doc(id).delete();
+  await firestore.collection("products").doc(id).delete();
 
+}
+Future update(String id,name,price,quantity) async{
+  await firestore.collection("products").doc(id).update({
+    "name": name,
+    "price":price,
+    "quantity":quantity,
+  });
 }
