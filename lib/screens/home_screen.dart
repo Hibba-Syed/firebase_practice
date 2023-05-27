@@ -113,6 +113,24 @@ class _HomeScreenState extends State<HomeScreen> {
                             //   child: const Icon(Icons.delete),
                             // ),
                             onDismissed: (v){
+                              //  AlertDialog(
+                              //   title: const Text("Really ?"),
+                              //   content:  const Text("are you sure you want to delete"),
+                              //   actions: [
+                              //     TextButton(
+                              //         onPressed: (){
+                              //           delete(result.id);
+                              //         },
+                              //         child: const Text("Yes")
+                              //     ),
+                              //     TextButton(
+                              //         onPressed: (){
+                              //           Navigator.of(context).pop(false);
+                              //         },
+                              //         child: const Text("No")
+                              //     ),
+                              //   ],
+                              // );
                               delete(result.id);
                             },
 
