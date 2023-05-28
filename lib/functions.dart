@@ -12,14 +12,19 @@ Future addData(BuildContext context,String name,price,quantity) async{
   });
 }
 
-Future delete(String id)async{
+Future deleteData(String id)async{
   await firestore.collection("products").doc(id).delete();
 
 }
-Future update(String id,name,price,quantity) async{
+Future updateData(String id,name,price,quantity) async{
   await firestore.collection("products").doc(id).update({
     "name": name,
     "price":price,
     "quantity":quantity,
   });
+}
+// this function use for sizeBox size
+extension Size on  num{
+  SizedBox get sh => SizedBox(height: toDouble(),);
+  SizedBox get sw => SizedBox(width: toDouble(),);
 }

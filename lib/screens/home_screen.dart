@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_practice/functions.dart';
+import 'package:firebase_practice/widget/increment_widget.dart';
 import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var price = TextEditingController();
   var name = TextEditingController();
   var quantity = TextEditingController();
+  var selectedNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ScaffoldMessenger.of(context).showSnackBar
                       ( SnackBar( content: Text(error.toString())));
                   });
-                  name.text = "";
-                  price.text = "";
-                  quantity.text = "";
+                  name.clear();
+                  price.clear();
+                  quantity.clear();
+                  FocusScope.of(context).unfocus();
                 },
                 child: const Text("Add"
                 ),
@@ -113,25 +116,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             //   child: const Icon(Icons.delete),
                             // ),
                             onDismissed: (v){
-                              //  AlertDialog(
-                              //   title: const Text("Really ?"),
-                              //   content:  const Text("are you sure you want to delete"),
-                              //   actions: [
-                              //     TextButton(
-                              //         onPressed: (){
-                              //           delete(result.id);
-                              //         },
-                              //         child: const Text("Yes")
-                              //     ),
-                              //     TextButton(
-                              //         onPressed: (){
-                              //           Navigator.of(context).pop(false);
-                              //         },
-                              //         child: const Text("No")
-                              //     ),
-                              //   ],
-                              // );
-                              delete(result.id);
+                              showDialog(context: context,
+                                builder: (context)=>
+                                    AlertDialog(
+                                      title: const Text("Really ?"),
+                                      content:  const Text("are you sure you want to delete"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: (){
+                                               deleteData(result.id);
+                                               Navigator.pop(context);
+                                            },
+                                            child: const Text("Yes")
+                                        ),
+                                        TextButton(
+                                            onPressed: (){
+                                              Navigator.of(context).pop(false);
+                                            },
+                                            child: const Text("No")
+                                        ),
+                                      ],
+                                    ),
+                              );
+                            //  deleteData(result.id);
                             },
 
                             child: Card(
@@ -205,14 +212,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                      SizedBox(
                                                        child: ElevatedButton(
                                                            onPressed: (){
-                                                          update(
+                                                          updateData(
                                                               result.id,
                                                               name.text.toString(),
                                                               price.text.toString(),
                                                               quantity.text.toString()).then((value){
+                                                            FocusScope.of(context).unfocus();
+                                                            Navigator.pop(context);
                                                           });
                                                            },
                                                            child: const Text("update"),
+
                                                        ),
                                                      ),
                                                      SizedBox(
@@ -253,16 +263,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
             ),
+            20.sh,
+            Text("Selected Number: $selectedNumber",
+              style: const TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            20.sh,
+            ElevatedButton(onPressed: (){
+              showDialog(
+                context: context,
+                builder: (_)=>  AlertDialog(
+                  title: const Text("Select a number "),
+                  content: IncrementWidget(
+                      initialVale: selectedNumber,
+                      min: 0,
+                      max: 10,
+                      step: 1,
+                      onChanged: (value){
+                        setState(() {
+                          selectedNumber = value;
+                          print("num + $selectedNumber");
+                        });
+                      }
+                  ),
+                ),
+              );
+            },
+              child: const Text("Add Quantity"),
+            ),
+            30.sh,
           ],
         ),
       ),
     );
   }
 }
-extension Size on  num{
- SizedBox get sh => SizedBox(height: toDouble(),);
- SizedBox get sw => SizedBox(width: toDouble(),);
-}
+
 
 
 
