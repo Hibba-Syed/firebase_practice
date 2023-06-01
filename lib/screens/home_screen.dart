@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_practice/functions.dart';
+import 'package:firebase_practice/notifications_service.dart';
 import 'package:firebase_practice/widget/increment_widget.dart';
 import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
@@ -9,6 +11,21 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 class _HomeScreenState extends State<HomeScreen> {
+  NotificationServices notificationServices = NotificationServices();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  String?  mtoken = "";
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    getDeviceToken();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    // notificationServices.getDeviceToken().then((value){
+    //   print("device token");
+    //   print("value");
+    // });
+  }
   // collection use for adding data in firebase
   final firestore = FirebaseFirestore.instance.collection("products");
   // snapshots use for fetching data from firebase
@@ -297,6 +314,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+  //this function is use for get device token
+  void getDeviceToken()async{
+    await messaging.getToken().then((token){
+      setState(() {
+        mtoken = token;
+        print("my token is  + $mtoken");
+      });
+    //  saveToken(token!);
+    });
   }
 }
 
