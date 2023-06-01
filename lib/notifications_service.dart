@@ -131,7 +131,8 @@ Future<void> setupInteractMessage(BuildContext context ) async{
 }
 void handleMessage(BuildContext context, RemoteMessage message){
 if(message.data['type']== message){
-  Navigator.push(context, MaterialPageRoute(builder: (_)=>CartScreen(id: message.data['id'],)));
+  Navigator.push(context, MaterialPageRoute(builder: (_)=>CartScreen()));
+  //id: message.data['id'],
 }
 }
 

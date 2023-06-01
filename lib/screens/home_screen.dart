@@ -4,6 +4,8 @@ import 'package:firebase_practice/functions.dart';
 import 'package:firebase_practice/notifications_service.dart';
 import 'package:firebase_practice/widget/increment_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'cart_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -288,6 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             20.sh,
             ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>const CartScreen()));
               showDialog(
                 context: context,
                 builder: (_)=>  AlertDialog(
