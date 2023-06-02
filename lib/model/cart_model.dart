@@ -6,6 +6,7 @@ class CartModel{
   final int? quantity;
   final String? unitTag;
   final String? image;
+  final int? productPrice;
   CartModel({
     required this.id,
     required this.productId,
@@ -14,6 +15,7 @@ class CartModel{
     required this.quantity,
     required this.image,
     required this.unitTag,
+    required this.productPrice,
 });
   CartModel.fromMap(Map<dynamic,dynamic> result)
       : id = result['id'],
@@ -22,7 +24,8 @@ class CartModel{
         initialPrice = result['initialPrice'],
         quantity = result['quantity'],
         unitTag = result['unitTag'],
-        image = result['image'];
+        image = result['image'],
+        productPrice = result['productPrice'];
 Map<String, Object?> toMap(){
   return {
     'id': id,
@@ -31,7 +34,8 @@ Map<String, Object?> toMap(){
     'initialPrice': initialPrice,
     'quantity': quantity,
     'image':image,
-    'unitTag':unitTag
+    'unitTag':unitTag,
+    'productPrice' : productPrice
   };
 }
 }

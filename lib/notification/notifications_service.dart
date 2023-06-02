@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_practice/screens/cart_screen.dart';
+import 'package:firebase_practice/screens/Product_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +131,7 @@ Future<void> setupInteractMessage(BuildContext context ) async{
 }
 void handleMessage(BuildContext context, RemoteMessage message){
 if(message.data['type']== message){
-  Navigator.push(context, MaterialPageRoute(builder: (_)=>CartScreen()));
+  Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductScreen()));
   //id: message.data['id'],
 }
 }
