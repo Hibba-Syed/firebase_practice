@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:firebase_practice/db_sqlite/db_helper.dart';
 import 'package:firebase_practice/model/cart_model.dart';
 import 'package:firebase_practice/provider/cart_provider.dart';
+import 'package:firebase_practice/screens/cart_screen.dart';
 import 'package:firebase_practice/utilis/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,16 +36,21 @@ class _ProductScreenState extends State<ProductScreen> {
         title:  const Text('Cart Page '),
         centerTitle: true,
         actions:  [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Badge(
-                badgeContent: Consumer<CartProvider>(
-                  builder: (context, value, child){
-                    return  Text(value.getCounter().toString(),style: TextStyle(color: Colors.white));
-                  },
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>const CartScreen()));
+            },
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Badge(
+                  badgeContent: Consumer<CartProvider>(
+                    builder: (context, value, child){
+                      return  Text(value.getCounter().toString(),style: TextStyle(color: Colors.white));
+                    },
+                  ),
+                  child: const Icon(Icons.shopping_bag_outlined),
                 ),
-                child: const Icon(Icons.shopping_bag_outlined),
               ),
             ),
           ),
@@ -142,3 +148,4 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 }
+

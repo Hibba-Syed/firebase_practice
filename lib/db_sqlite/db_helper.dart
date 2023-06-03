@@ -34,4 +34,20 @@ Future<List<CartModel>> getCartList()async{
   return queryResult.map((e) => CartModel.fromMap(e)).toList();
 
 }
+Future<int> delete(int id)async{
+  var dbClient = await db;
+  return await dbClient!.delete(
+    'cart',where: 'id= ?',
+    whereArgs: [id]
+  );
+}
+Future<int> updateQuantity(CartModel cartModel)async{
+  var dbClient = await db;
+  return await dbClient!.update(
+      'cart',
+    cartModel.toMap(),
+    where: 'id = ?',
+    whereArgs: [cartModel.id]
+  );
+}
 }
