@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home: const UplodeImage(),
+          home:  UplodeImage(),
           debugShowCheckedModeBanner: false,
         );
       }),

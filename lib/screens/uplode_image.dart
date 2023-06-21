@@ -5,14 +5,21 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:file_picker/file_picker.dart';
+
+import '../model/curd_model.dart';
 class UplodeImage extends StatefulWidget {
-  const UplodeImage({Key? key}) : super(key: key);
+
+   UplodeImage({Key? key, }) : super(key: key);
 
   @override
   State<UplodeImage> createState() => _UplodeImageState();
 }
 
 class _UplodeImageState extends State<UplodeImage> {
+  CrudModel? crudModel;
+  var name = TextEditingController();
+  var price = TextEditingController();
+  var quantity = TextEditingController();
   File? selectedImage;
 
   Future pickImageFromGallery() async {
@@ -61,14 +68,13 @@ class _UplodeImageState extends State<UplodeImage> {
       print('No image selected.');
     }
   }
-
-
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        body: Center(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               selectedImage != null
                   ? Container(
@@ -83,16 +89,70 @@ class _UplodeImageState extends State<UplodeImage> {
               20.sh,
               ElevatedButton(
                 onPressed: () {
-                    pickImageFromGallery();
+                    pickImageFromGallery().then((value) => uploadImageToFirebaseAndFirestore());
                 },
                 child: const Text("select image"),
               ),
               20.sh,
               ElevatedButton(
-                onPressed: () {
-                  uploadImageToFirebaseAndFirestore();
-                },
-                child: const Text("upload"),
+                onPressed: () async {
+                  // uploadImageToFirebaseAndFirestore();
+                  var ref = FirebaseFirestore.instance.collection("Anaconda");
+                  var doc = ref.doc();
+                  CrudModel ana = CrudModel(
+                    id: doc.id,
+                    name: name.text,
+                    price: int.parse(price.text),
+                    quantity: quantity.text,
+                  );
+                  await doc.set(ana.toJson());
+                  name.clear();
+                  price.clear();
+                  quantity.clear();
+                  print('data add successfully');
+                }, child: const Text("Add Data"),
+              ),
+              20.sh,
+              TextField(
+                controller: price,
+                decoration: InputDecoration(
+                  isDense: true,
+                  filled: true,
+                  labelText: "price",
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 0, style: BorderStyle.none),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+              ),
+              20.sh,
+              TextField(
+                controller: quantity,
+                decoration: InputDecoration(
+                  isDense: true,
+                  filled: true,
+                  labelText: "quantity",
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 0, style: BorderStyle.none),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+              ),
+              20.sh,
+              TextField(
+                controller: name,
+                decoration: InputDecoration(
+                  isDense: true,
+                  filled: true,
+                  labelText: "name",
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 0, style: BorderStyle.none),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
               ),
             ],
           ),
