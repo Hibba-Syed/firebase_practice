@@ -1,0 +1,36 @@
+
+{
+  "name": "ali",
+  "age": 23,
+  "rollNo": 391,
+  "subjects": ["physics","math","Flutter"],
+  "attributes":{"height" :5.8, "color": "white"},
+  "images": [
+    {
+      "id": 1,
+      "image_name": "first image"
+    },
+    {
+      "id": 2,
+      "image_name": "second image"
+    },
+    {
+      "id": 3,
+      "image_name": "third image"
+    }
+  ],
+  "Mit": [
+    {
+      "student_name": "Ali",
+      "student_rollNo": "1"
+    },
+    {
+      "student_name": "Hiba",
+      "student_rollNo": "2"
+    },
+    {
+      "student_name": "Syed",
+      "student_rollNo": "3"
+    }
+  ]
+}

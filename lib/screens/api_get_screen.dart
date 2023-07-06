@@ -1,7 +1,8 @@
 import 'package:firebase_practice/model/postsModel.dart';
 import 'package:flutter/material.dart';
 
-import '../services/api_services.dart';
+import '../api_services/api_services.dart';
+
 class ApiGetScreen extends StatefulWidget {
   const ApiGetScreen({Key? key}) : super(key: key);
 

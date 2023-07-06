@@ -8,6 +8,7 @@ import 'package:firebase_practice/screens/uplode_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'api_services/api_work.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home:  UplodeImage(),
+          home:  MianPageApi(),
           debugShowCheckedModeBanner: false,
         );
       }),
