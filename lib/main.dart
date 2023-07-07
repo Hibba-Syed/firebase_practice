@@ -4,6 +4,7 @@ import 'package:firebase_practice/provider/cart_provider.dart';
 import 'package:firebase_practice/screens/api_get_screen.dart';
 import 'package:firebase_practice/screens/api_post_screen.dart';
 import 'package:firebase_practice/screens/home_screen.dart';
+import 'package:firebase_practice/screens/randomuser.dart';
 import 'package:firebase_practice/screens/uplode_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home:  MianPageApi(),
+          home:  RandomUser(),
           debugShowCheckedModeBanner: false,
         );
       }),
